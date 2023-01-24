@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Tictactoe</title>
+    <link rel='stylesheet' href='style.css'>
+</head>
+
+<body>
+    <div class='container'>
+        <h1>Tictactoe</h1>
+        <span class='difficulty'>Difficulty: $difficulty</span>
+        <h2>Player 1's turn</h2>
+        <div class='score-container centre'>
+            <div class='x-score'>
+                <p class='player'>x</p>
+                <p class='score'>$x_score</p>
+            </div>
+            <div class='o-score'>
+                <p class='player'>o</p>
+                <p class='score'>$o_score</p>
+            </div>
+        </div>
+        <div class='grid-container centre'>
+            <button class='box row1 column1'></button>
+            <button class='box row1 column2'></button>
+            <button class='box row1 column3'></button>
+            <button class='box row2 column1'></button>
+            <button class='box row2 column2'></button>
+            <button class='box row2 column3'></button>
+            <button class='box row3 column1'></button>
+            <button class='box row3 column2'></button>
+            <button class='box row3 column3'></button>
+        </div>
+        <p>Restart game</p>
+        <div hidden class='hidden-container'>
+            <button>Easy</button>
+            <button>Medium</button>
+            <button>Impossible</button>
+            <button>Play against a friend</button>
+        </div>
+        <button>v</button>
+        <div hidden id='popup-container' class='popup-container'>
+            <div class='top-container'>
+                <h2 id='popup-title' class='popup-title'>$outcome</h2>
+                <button id='close' class='close'>x</button>
+            </div>
+            <button id='continue' class='continue'>Continue</button>
+        </div>
+    </div>
+    <script src='script.js'></script>
+</body>
+
+</html>
