@@ -10,16 +10,16 @@
 <body>
     <div class='container'>
         <h1>Tictactoe</h1>
-        <span class='difficulty'>Difficulty: $difficulty</span>
+        <span class='difficulty-set'>Difficulty: $difficulty</span>
         <h2>Player 1's turn</h2>
         <div class='score-container centre'>
             <div class='x-score'>
                 <p class='player'>x</p>
-                <p class='score'>$x_score</p>
+                <p id='x_score' class='score'>0</p>
             </div>
             <div class='o-score'>
                 <p class='player'>o</p>
-                <p class='score'>$o_score</p>
+                <p id='o_score' class='score'>0</p>
             </div>
         </div>
         <div class='grid-container centre'>
@@ -33,14 +33,14 @@
             <button class='box row3 column2'></button>
             <button class='box row3 column3'></button>
         </div>
-        <p>Restart game</p>
-        <div hidden class='hidden-container'>
-            <button>Easy</button>
-            <button>Medium</button>
-            <button>Impossible</button>
-            <button>Play against a friend</button>
+        <p id='restart'>Restart game</p>
+        <div hidden id='hidden-container' class='hidden-container'>
+            <button id='easy' class='difficulty'>Easy</button>
+            <button id='medium' class='difficulty'>Medium</button>
+            <button id='impossible' class='difficulty'>Impossible</button>
+            <button id='friend' class='difficulty'>Play against a friend</button>
         </div>
-        <button>v</button>
+        <button id='expand'>v</button>
         <div hidden id='popup-container' class='popup-container'>
             <div class='top-container'>
                 <h2 id='popup-title' class='popup-title'>$outcome</h2>

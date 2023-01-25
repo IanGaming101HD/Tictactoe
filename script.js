@@ -1,5 +1,18 @@
 let boxes = document.getElementsByClassName('box')
+let restart = document.getElementById('restart')
+let expand = document.getElementById('expand')
 let playersTurn = 'x'
+let difficulty = formatString('easy')
+let score = {
+    'x': 0,
+    'o': 0
+}
+
+document.body.innerHTML = document.body.innerHTML.replace('$difficulty', difficulty)
+
+function formatString(string) {
+    return string[0].toUpperCase() + string.slice(1).toLowerCase()
+}
 
 function onClick(element) {
     console.log(element)
@@ -37,6 +50,10 @@ function checkGrid(boxes, player, element) {
 }
 
 function winner(player) {
+    score[player] += 1
+
+    document.getElementById(`${player}_score`).innerText = score[player]
+
     gameEndedMessage(`Player ${player} wins!`)
     return player
 }
@@ -56,22 +73,53 @@ function showElement(element) {
     return
 }
 
+function changeDifficulty(mode) {
+    console.log(difficulty)
+    
+    difficulty = mode
+}
+
 function gameEndedMessage(message) {
     let popupContainer = document.getElementById('popup-container')
 
-    Object.values(boxes).forEach((element) => {
-        element.removeEventListener('click', onClick)
-    })
+    // Object.values(boxes).forEach((element) => {
+    //     element.removeEventListener('click', onClick)
+    // })
 
     setTimeout(function () {
         showElement(popupContainer)
         document.body.innerHTML = document.body.innerHTML.replace('$outcome', message)
 
-        document.getElementById('close').addEventListener('click', () => location.reload())
-        document.getElementById('continue').addEventListener('click', () => location.reload())
-    }, 3000)
+        document.getElementById('close').addEventListener('click', () => {
+            console.log('hi')
+            hideElement(document.getElementById('popup-container'))
+        })
+        document.getElementById('continue').addEventListener('click', () => {
+            console.log('hi')
+            hideElement(document.getElementById('popup-container'))
+        })
+        // }, 3000)
+    }, 0)
 }
 
 Object.values(boxes).forEach((element) => {
     element.addEventListener('click', onClick.bind(null, element))
+})
+
+document.getElementById('restart').addEventListener('click', () => location.reload())
+
+document.getElementById('expand').addEventListener('click', () => {
+    let hiddenContainer = document.getElementById('hidden-container')
+
+    if (hiddenContainer.hidden == true) {
+        showElement(hiddenContainer)
+        document.getElementById('expand').innerText = '^'
+    } else {
+        hideElement(hiddenContainer)
+        document.getElementById('expand').innerText = 'v'
+    }
+})
+
+Object.values(document.getElementsByClassName('difficulty')).forEach((element) => {
+    element.addEventListener('click', (value) => changeDifficulty(value.target.id))
 })
