@@ -89,13 +89,14 @@ function gameEndedMessage(message) {
     setTimeout(function () {
         showElement(popupContainer)
         document.body.innerHTML = document.body.innerHTML.replace('$outcome', message)
+        
+        let closeButton = document.getElementById('close')
+        let continueButton = document.getElementById('continue')
 
-        document.getElementById('close').addEventListener('click', () => {
-            console.log('hi')
+        closeButton.addEventListener('click', () => {
             hideElement(document.getElementById('popup-container'))
         })
-        document.getElementById('continue').addEventListener('click', () => {
-            console.log('hi')
+        continueButton.addEventListener('click', () => {
             hideElement(document.getElementById('popup-container'))
         })
         // }, 3000)
