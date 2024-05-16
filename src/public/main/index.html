@@ -4,22 +4,22 @@
 
 <head>
     <title>Tictactoe</title>
-    <link rel='stylesheet' href='style.css'>
+    <link rel='stylesheet' href='./public/main/style.css'>
 </head>
 
 <body>
     <div class='container'>
         <h1>Tictactoe</h1>
         <span class='difficulty-set'>Difficulty: $difficulty</span>
-        <h2>Player 1's turn</h2>
-        <div class='score-container centre'>
-            <div class='x-score'>
+        <h2><span id='players-turn'>$player</span>'s turn</h2>
+        <div class='score-container'>
+            <div class='x-container player-container'>
                 <p class='player'>x</p>
-                <p id='x_score' class='score'>0</p>
+                <p id='x-score' class='score'>0</p>
             </div>
-            <div class='o-score'>
+            <div class='o-container player-container'>
                 <p class='player'>o</p>
-                <p id='o_score' class='score'>0</p>
+                <p id='o-score' class='score'>0</p>
             </div>
         </div>
         <div class='grid-container centre'>
@@ -33,23 +33,24 @@
             <button class='box row3 column2'></button>
             <button class='box row3 column3'></button>
         </div>
-        <p id='restart'>Restart game</p>
-        <div hidden id='hidden-container' class='hidden-container'>
+        <p id='restart-button' class='restart-button'>Restart game</p>
+        <div id='hidden-container' class='hidden-container' hidden>
             <button id='easy' class='difficulty'>Easy</button>
             <button id='medium' class='difficulty'>Medium</button>
             <button id='impossible' class='difficulty'>Impossible</button>
             <button id='friend' class='difficulty'>Play against a friend</button>
         </div>
-        <button id='expand'>v</button>
-        <div hidden id='popup-container' class='popup-container'>
-            <div class='top-container'>
-                <h2 id='popup-title' class='popup-title'>$outcome</h2>
-                <button id='close' class='close'>x</button>
-            </div>
-            <button id='continue' class='continue'>Continue</button>
+        <button id='expand' class='expand'>v</button>
+        <!-- <button id='collapse' class='collapse'>^</button> -->
+        <div id='popup-container' class='popup-container' hidden>
+            <button id='close-button' class='close-button'>✖</button>
+            <h2 id='winner' class='winner'>𐤏</h2>
+            <!-- <h2 id='winner' class='winner'>$winner</h2> -->
+            <h2 id='outcome' class='outcome'>$outcome</h2>
+            <button id='continue-button' class='continue-button'>Continue</button>
         </div>
     </div>
-    <script src='script.js'></script>
+    <script src='./public/main/script.js'></script>
 </body>
 
 </html>
