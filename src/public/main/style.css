@@ -27,9 +27,10 @@ html {
 }
 
 .score-container {
-    margin-left: 34.5%;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .player-container {
@@ -66,7 +67,10 @@ html {
 }
 
 .popup-container {
+    display: none;
     position: fixed;
+    left: 40%;
+    top: 25%;
     width: 350px;
     height: 350px;
     background-color: #ffffff;
@@ -86,10 +90,8 @@ html {
 }
 
 .winner {
-    /* font-weight: lighter; */
     margin-top: -50px;
     margin-bottom: -50px;
-    /* margin: 0px; */
     font-size: 150px
 }
 
@@ -97,7 +99,7 @@ html {
     font-size: 40px;
 }
 
-.expand {
+.toggle-expansion-button {
     font-size: 25px;
     border: none;
     background-color: transparent;
@@ -114,12 +116,16 @@ html {
     color: #ffffff;
 }
 
-.hidden-container {
+.expansion-container {
+    display: none;
     margin-bottom: 0.5%;
 }
 
 .restart-button {
-    cursor: pointer;
+    margin-bottom: 1%;
+    font-size: 20px;
+    border: none;
+    background-color: transparent;
 }
 
 .difficulty {

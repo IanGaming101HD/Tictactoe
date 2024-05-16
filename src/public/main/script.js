@@ -1,143 +1,215 @@
-let boxes = document.getElementsByClassName('box')
-let difficulty = 'easy'
+let boxes = Array.from(document.getElementsByClassName('box'));
+let difficulty = 'Play against a friend';
 let players = {
-    'x': { symbol: '✖', score: 0 },
-    'o': { symbol: '𐤏', score: 0 }
-}
-let playersTurn = players['x'].symbol
+  x: { symbol: '✖', score: 0 },
+  o: { symbol: '𐤏', score: 0 },
+};
+let playersTurn = players['x'].symbol;
 
-document.body.innerHTML = document.body.innerHTML.replace('$player', playersTurn)
-document.body.innerHTML = document.body.innerHTML.replace('$difficulty', formatString('easy'))
+let difficultyNode = document.getElementById('difficulty');
+let playerTurnNode = document.getElementById('players-turn');
+
+difficultyNode.innerText = difficulty;
+playerTurnNode.innerText = playersTurn;
 
 function formatString(string) {
-    return string[0].toUpperCase() + string.slice(1).toLowerCase()
-}
-
-function placeSymbol(element) {
-    if (element.innerText === '') {
-        element.innerText = playersTurn
-        checkGrid(boxes, playersTurn, element)
-        playersTurn = nextTurn(playersTurn)
-    }
+  return (
+    string[0].toUpperCase() + string.slice(1).toLowerCase().replace(/-/g, ' ')
+  );
 }
 
 function nextTurn(playersTurn) {
-    symbol = playersTurn
+  symbol = playersTurn;
 
-    if (symbol === players['x'].symbol) {
-        symbol = players['o'].symbol
-    } else {
-        symbol = players['x'].symbol
-    }
-    
-    document.getElementById('players-turn').innerText = symbol
-    // document.body.innerHTML = document.body.innerHTML.replace('$player', symbol)
-    return symbol
+  if (symbol === players['x'].symbol) {
+    symbol = players['o'].symbol;
+  } else {
+    symbol = players['x'].symbol;
+  }
+
+  let playersTurnNode = document.getElementById('players-turn');
+  playersTurnNode.innerText = symbol;
+  return symbol;
 }
 
 function checkGrid(boxes, player, element) {
-    let a1 = Object.values(boxes).find((element) => Object.values(element.classList).includes('row1') && Object.values(element.classList).includes('column1')).innerText
-    let a2 = Object.values(boxes).find((element) => Object.values(element.classList).includes('row1') && Object.values(element.classList).includes('column2')).innerText
-    let a3 = Object.values(boxes).find((element) => Object.values(element.classList).includes('row1') && Object.values(element.classList).includes('column3')).innerText
-    let b1 = Object.values(boxes).find((element) => Object.values(element.classList).includes('row2') && Object.values(element.classList).includes('column1')).innerText
-    let b2 = Object.values(boxes).find((element) => Object.values(element.classList).includes('row2') && Object.values(element.classList).includes('column2')).innerText
-    let b3 = Object.values(boxes).find((element) => Object.values(element.classList).includes('row2') && Object.values(element.classList).includes('column3')).innerText
-    let c1 = Object.values(boxes).find((element) => Object.values(element.classList).includes('row3') && Object.values(element.classList).includes('column1')).innerText
-    let c2 = Object.values(boxes).find((element) => Object.values(element.classList).includes('row3') && Object.values(element.classList).includes('column2')).innerText
-    let c3 = Object.values(boxes).find((element) => Object.values(element.classList).includes('row3') && Object.values(element.classList).includes('column3')).innerText
+  let a1 = boxes.find(
+    (element) =>
+      Object.values(element.classList).includes('row1') &&
+      Object.values(element.classList).includes('column1')
+  ).innerText;
+  let a2 = boxes.find(
+    (element) =>
+      Object.values(element.classList).includes('row1') &&
+      Object.values(element.classList).includes('column2')
+  ).innerText;
+  let a3 = boxes.find(
+    (element) =>
+      Object.values(element.classList).includes('row1') &&
+      Object.values(element.classList).includes('column3')
+  ).innerText;
+  let b1 = boxes.find(
+    (element) =>
+      Object.values(element.classList).includes('row2') &&
+      Object.values(element.classList).includes('column1')
+  ).innerText;
+  let b2 = boxes.find(
+    (element) =>
+      Object.values(element.classList).includes('row2') &&
+      Object.values(element.classList).includes('column2')
+  ).innerText;
+  let b3 = boxes.find(
+    (element) =>
+      Object.values(element.classList).includes('row2') &&
+      Object.values(element.classList).includes('column3')
+  ).innerText;
+  let c1 = boxes.find(
+    (element) =>
+      Object.values(element.classList).includes('row3') &&
+      Object.values(element.classList).includes('column1')
+  ).innerText;
+  let c2 = boxes.find(
+    (element) =>
+      Object.values(element.classList).includes('row3') &&
+      Object.values(element.classList).includes('column2')
+  ).innerText;
+  let c3 = boxes.find(
+    (element) =>
+      Object.values(element.classList).includes('row3') &&
+      Object.values(element.classList).includes('column3')
+  ).innerText;
 
-    if ([a1, a2, a3].every((element) => element === player) || [b1, b2, b3].every((element) => element === player) || [c1, c2, c3].every((element) => element === player) || [a1, b1, c1].every((element) => element === player) || [a2, b2, c2].every((element) => element === player) || [a3, b3, c3].every((element) => element === player) || [a1, b2, c3].every((element) => element === player) || [a3, b2, c1].every((element) => element === player)) {
-        winner(getPlayerFromSymbol(player))
-    } else if (!Object.values(boxes).find((element) => element.innerText === '')) {
-        draw()
-    }
+  if (
+    [a1, a2, a3].every((element) => element === player) ||
+    [b1, b2, b3].every((element) => element === player) ||
+    [c1, c2, c3].every((element) => element === player) ||
+    [a1, b1, c1].every((element) => element === player) ||
+    [a2, b2, c2].every((element) => element === player) ||
+    [a3, b3, c3].every((element) => element === player) ||
+    [a1, b2, c3].every((element) => element === player) ||
+    [a3, b2, c1].every((element) => element === player)
+  ) {
+    winner(getPlayerFromSymbol(player));
+  } else if (!boxes.find((element) => element.innerText === '')) {
+    draw();
+  }
 }
 
 function getPlayerFromSymbol(symbol) {
-    for (let player in players) {
-        if (players[player].symbol === symbol) {
-            return player
-        }
+  for (let player in players) {
+    if (players[player].symbol === symbol) {
+      return player;
     }
-    return null
+  }
+  return null;
 }
 
 function winner(player) {
-    players[player].score += 1
-    document.getElementById(`${player}-score`).innerText = players[player].score
-    gameEndedMessage(players[player].symbol, 'WINNER!')
-    return player
+  players[player].score += 1;
+  document.getElementById(`${player}-score`).innerText = players[player].score;
+  gameEndedMessage(players[player].symbol, 'WINNER!');
+  return player;
 }
 
 function draw() {
-    gameEndedMessage(`${players['x'].symbol}${players['o'].symbol}`, 'DRAW!')
-    return `${players['x'].symbol}${players['o'].symbol}`
+  gameEndedMessage(`${players['x'].symbol}${players['o'].symbol}`, 'DRAW!');
+  return `${players['x'].symbol}${players['o'].symbol}`;
 }
 
 function hideElement(element) {
-    element.hidden = true
-    return element
+  element.style.display = 'none';
 }
 
 function showElement(element) {
-    element.hidden = false
-    return element
+  element.style.display = 'block';
 }
 
-function changeDifficulty(mode) {
-    difficulty = mode
-    console.log(mode)
+function lockBoard() {
+  boxes.forEach((box) => {
+    box.disabled = true;
+  });
+}
+
+function unlockBoard() {
+  boxes.forEach((box) => {
+    box.disabled = false;
+  });
 }
 
 function clearBoard() {
-    Object.values(boxes).forEach((box) => {
-        box.innerText = ''
-    })
+  boxes.forEach((box) => {
+    box.innerText = '';
+  });
 }
 
 function gameEndedMessage(winner, message) {
-    let popupContainer = document.getElementById('popup-container')
-    showElement(popupContainer)
-    document.body.innerHTML = document.body.innerHTML.replace('$winner', winner)
-    document.body.innerHTML = document.body.innerHTML.replace('$outcome', message)
+  let popupContainer = document.getElementById('popup-container');
+  showElement(popupContainer);
+  lockBoard();
+
+  let winnerNode = document.getElementById('winner');
+  winnerNode.innerText = winner;
+
+  let outcome = document.getElementById('outcome');
+  outcome.innerText = message;
 }
 
-Object.values(boxes).forEach((box) => {
-    box.addEventListener('click', placeSymbol.bind(null, box))
-})
-
-document.getElementById('restart').addEventListener('click', () => {
-    clearBoard()
-    players['x'].score = 0
-    players['o'].score = 0
-    document.getElementById('x-score') = 0
-    document.getElementById('o-score') = 0
-})
-
-document.getElementById('expand').addEventListener('click', () => {
-    let hiddenContainer = document.getElementById('hidden-container')
-
-    if (!hiddenContainer.hidden) {
-        hideElement(hiddenContainer)
-        document.getElementById('expand').innerText = 'v'
-    } else {
-        showElement(hiddenContainer)
-        document.getElementById('expand').innerText = '^'
+boxes.forEach((box) => {
+  box.addEventListener('click', (event) => {
+    if (box.innerText === '') {
+      box.innerText = playersTurn;
+      checkGrid(boxes, playersTurn, box);
+      playersTurn = nextTurn(playersTurn);
     }
-})
+  });
+});
 
-Object.values(document.getElementsByClassName('difficulty')).forEach((element) => {
-    element.addEventListener('click', (value) => changeDifficulty(value.target.id))
-})
+let restartButton = document.getElementById('restart-button');
+restartButton.addEventListener('click', (event) => {
+  clearBoard();
+  players['x'].score = 0;
+  players['o'].score = 0;
+  let playerXScore = document.getElementById('x-score');
+  let playerOScore = document.getElementById('o-score');
+  playerXScore.innerText = 0;
+  playerOScore.innerText = 0;
+});
 
-document.getElementById('close-button').addEventListener('click', () => {
-    console.log('hide1')
-    hideElement(document.getElementById('popup-container'))
-    console.log('hide2')
-})
+let toggleExpansionButton = document.getElementById('toggle-expansion-button');
+toggleExpansionButton.addEventListener('click', (event) => {
+  let expansionContainer = document.getElementById('expansion-container');
+  if (toggleExpansionButton.innerText === 'v') {
+    toggleExpansionButton.innerText = '^';
+    showElement(expansionContainer);
+  } else if (toggleExpansionButton.innerText === '^') {
+    toggleExpansionButton.innerText = 'v';
+    hideElement(expansionContainer);
+  }
+});
 
-document.getElementById('continue-button').addEventListener('click', () => {
-    console.log('continue-1')
-    hideElement(document.getElementById('popup-container'))
-    console.log('continue-2')
-})
+let difficultyButtons = Array.from(
+  document.getElementsByClassName('difficulty')
+);
+difficultyButtons.forEach((element) => {
+  element.addEventListener('click', (event) => {
+    let mode = event.target.id;
+    difficulty = formatString(mode);
+    difficultyNode.innerText = difficulty;
+  });
+});
+
+let closeButton = document.getElementById('close-button');
+closeButton.addEventListener('click', (event) => {
+  let popupContainer = document.getElementById('popup-container');
+  hideElement(popupContainer);
+  clearBoard();
+  unlockBoard();
+});
+
+let continueButton = document.getElementById('continue-button');
+continueButton.addEventListener('click', (event) => {
+  let popupContainer = document.getElementById('popup-container');
+  hideElement(popupContainer);
+  clearBoard();
+  unlockBoard();
+});
